@@ -1,0 +1,25 @@
+name: Testing, Please Ignore
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  foo:
+    name: Foo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Try installing version
+        run: |
+          echo "${{ github.event.release.tag_name }}"
+          npm init -y
+          npm install ironfish@${{ github.event.release.tag_name }}
